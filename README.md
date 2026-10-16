@@ -2,6 +2,12 @@
 
 ![KamaDex](docs/images/cover.svg)
 
+### Vista del álbum y perfil RPG
+
+![Álbum KamaDex](docs/images/binder-preview.svg)
+
+![Perfil KamaDex](docs/images/profile-preview.svg)
+
 Una aplicación de álbum coleccionable con **514 fichas**, tarjetas ilustradas, seguimiento de realización, XP según dificultad, favoritos, perfil RPG y estadísticas. Diseñada para personas adultas.
 
 ## Funciones
