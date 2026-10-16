@@ -15,7 +15,7 @@
     try{
       const prev=JSON.parse(localStorage.getItem(STORE)||"null");
       if(prev&&typeof prev==="object"){
-        const merged={...blank,...prev,records:prev.records||{},everCompleted:Array.isArray(prev.everCompleted)?prev.everCompleted:[],progressionV25:prev.progressionV25||blank.progressionV25};
+        const merged={...blank,...prev,playerName:prev.playerName||prev.nickname||blank.playerName,avatar:{"star":"⭐","moon":"🌙","heart":"💜","trophy":"🏆"}[prev.avatar]||prev.avatar||blank.avatar,records:prev.records||{},everCompleted:Array.isArray(prev.everCompleted)?prev.everCompleted:[],progressionV25:prev.progressionV25||blank.progressionV25};
         return merged;
       }
     }catch(e){console.warn("KamaDex storage",e)}
@@ -84,7 +84,10 @@
     document.body.append(overlay);setTimeout(()=>overlay.remove(),2800);
   }
   function cardPicture(c){
-    return '<img loading="lazy" decoding="async" alt="Ilustración de '+escapeHtml(c.name)+'" src="'+escapeHtml("./public/images/positions/"+c.fileName)+'" data-remote="'+escapeHtml(c.imageSource)+'" onerror="this.onerror=null;this.src=this.dataset.remote;this.dataset.remote=&quot;&quot;;if(this.dataset.failed){this.style.display=&quot;none&quot;}else{this.dataset.failed=&quot;1&quot;;this.onerror=function(){this.style.display=&quot;none&quot;}}">';
+    const local=!!window.KAMADEX_LOCAL_IMAGES;
+    const image=local?"./public/images/positions/"+c.fileName:c.imageSource;
+    const backup=local?c.imageSource:"";
+    return '<img loading="lazy" decoding="async" alt="Ilustración de '+escapeHtml(c.name)+'" src="'+escapeHtml(image)+'" data-remote="'+escapeHtml(backup)+'" onerror="if(this.dataset.remote){this.src=this.dataset.remote;this.dataset.remote=&quot;&quot;;}else{this.onerror=null;this.style.display=&quot;none&quot;}">';
   }
   function cardHTML(c,i){
     const r=rec(c.id),done=r.status==="completed",fav=r.favorite;
