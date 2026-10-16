@@ -1,0 +1,11 @@
+{
+  "name": "kamadex",
+  "version": "2.5.2",
+  "private": true,
+  "type": "module",
+  "description": "Álbum privado de cartas y progresión RPG",
+  "scripts": {
+    "test": "node tests/validate.mjs",
+    "serve": "python -m http.server 8000"
+  }
+}
