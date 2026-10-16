@@ -260,6 +260,14 @@
     if(e.target.id==="backup-input"&&e.target.files[0])importBackup(e.target.files[0]);
   });
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&selected!==null){selected=null;render()}});
+  if(localStorage.getItem("kamadex.adult.confirmed")!=="yes"){
+    ROOT.innerHTML='<main class="age-gate"><div class="age-card"><div class="age-icon">✧</div><h1>KamaDex</h1><p>Aplicación destinada exclusivamente a personas adultas (18+). El catálogo contiene ilustraciones de posiciones sexuales.</p><div class="age-options"><button class="btn accent" id="age-confirm">Tengo 18 años o más</button><button class="btn secondary" id="age-deny">Salir</button></div><small>Tu confirmación se guarda únicamente en este navegador. No equivale a una verificación oficial de edad.</small></div></main>';
+    ROOT.addEventListener("click",e=>{
+      if(e.target.id==="age-confirm"){localStorage.setItem("kamadex.adult.confirmed","yes");location.reload();}
+      if(e.target.id==="age-deny")ROOT.innerHTML='<main class="age-gate"><div class="age-card"><h1>Acceso restringido</h1><p>Esta aplicación está disponible exclusivamente para adultos.</p></div></main>';
+    });
+    return;
+  }
   import("./catalog.js").then(module=>{
     cards=module.POSITIONS;
     if(cards.length!==514||new Set(cards.map(c=>c.id)).size!==514)throw Error("Se esperaban 514 fichas únicas");
